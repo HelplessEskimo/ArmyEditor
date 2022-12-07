@@ -1,0 +1,43 @@
+[gd_scene format=2]
+
+[node name="Container" type="Control"]
+anchor_right = 0.462
+anchor_bottom = 0.057
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 456.0
+margin_bottom = 35.0
+
+[node name="LawOrReference" type="OptionButton" parent="Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 71.0
+margin_bottom = 27.0
+text = "Law"
+items = [ "Law", null, false, 0, null, "Reference", null, false, 1, null, "Law & Reference", null, false, 2, null ]
+selected = 0
+
+[node name="Type" type="OptionButton" parent="Panel"]
+margin_left = 232.0
+margin_top = 7.0
+margin_right = 333.0
+margin_bottom = 27.0
+text = "Int"
+items = [ "Int", null, false, 0, null, "String", null, false, 1, null, "Class", null, false, 2, null ]
+selected = 0
+
+[node name="Type2" type="OptionButton" parent="Panel"]
+margin_left = 112.0
+margin_top = 7.0
+margin_right = 204.0
+margin_bottom = 27.0
+text = "unique"
+items = [ "unique", null, false, 0, null, "non-unique", null, false, 1, null ]
+selected = 0
+
+[node name="RichTextLabel" type="TextEdit" parent="Panel"]
+margin_left = 348.0
+margin_top = 6.0
+margin_right = 450.0
+margin_bottom = 26.0
+text = "Name of Item"
