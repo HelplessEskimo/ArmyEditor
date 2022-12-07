@@ -35,7 +35,7 @@ text = "unique"
 items = [ "unique", null, false, 0, null, "non-unique", null, false, 1, null ]
 selected = 0
 
-[node name="RichTextLabel" type="TextEdit" parent="Panel"]
+[node name="Name" type="TextEdit" parent="Panel"]
 margin_left = 348.0
 margin_top = 6.0
 margin_right = 450.0
