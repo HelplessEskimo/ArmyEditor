@@ -1,6 +1,6 @@
 extends Control
 
-onready var dataCreator = preload("res://Control.tscn")
+onready var dataCreator = preload("res://createDataset.tscn")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
