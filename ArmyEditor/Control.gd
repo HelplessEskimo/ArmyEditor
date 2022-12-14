@@ -1,12 +1,14 @@
 extends Control
-class Datapoint:
-	var lawOrRef = ""
-	var type = ""
-	var unique = ""
-	var name = ""
+
+
+signal setupComplete
+
+onready var defines = preload("res://defines.gd")
 onready var itemBox = preload("res://ItemOfClass.tscn")
+onready var uuidGen = preload("res://uuid.gd")
 var classes = []
-var data = []
+var data = EZCache.get_section("data")
+var uuids = []
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -30,42 +32,41 @@ func _on_ButtonNext_pressed():
 		dataClass.append(name)
 		for i in vBox.get_children():
 			var dataPoint = getDatapoint(i)
-			dataClass.append(dataPoint)
-		data.append(dataClass)
+			data.store(dataPoint.UUID,dataPoint)
+			var temp = data.fetch(classes[0].UUID)
+			temp.dataPoints.append(dataPoint.UUID)
+			data.purge_key(classes[0].UUID)
+			data.store(classes[0].UUID,temp)
+			print(temp)
 		classes.erase(classes[0])
 	else:
 		for i in vBox.get_children():
 			var dataPoint = getDatapoint(i)
-			data.append(dataPoint)
+			uuids.append(dataPoint.UUID)
+			data.store(dataPoint.UUID,dataPoint)
 	#check if there are classes that need resolving
+	for i in vBox.get_children():
+		vBox.remove_child(i)
 	if classes != []:
-		for i in vBox.get_children():
-			vBox.remove_child(i)
 		panelName.text = classes[0].name
-						
-		#load new input fields
-		#and save those inputs here
-		#can be done recursive(but not with scene)
-
-	#save data in json file
-
-	
 	if classes == []:
-		var file = File.new()
-		file.open("user://save_srtuct.dat", File.WRITE)
-		file.store_line(to_json(var2str(data)))
-		file.close()
-		#done with this part
-	pass # Replace with function body.
-func getDatapoint(i):
-	var dataPoint = Datapoint.new()
-	dataPoint.lawOrRef = i.get_child(0).get_child(0).text
-	dataPoint.type = i.get_child(0).get_child(1).text
-	dataPoint.unique = i.get_child(0).get_child(2).text
-	dataPoint.name = i.get_child(0).get_child(3).text
-	
+		data.store("UUIDS",uuids)
+		#this should only be reachable after everything is filled
+		pass
+
+func getDatapoint(i):# i is a child of type ItemOfClass (itemBox)
+	var dataPoint = {
+		"lawOrRef" 	: i.get_child(0).get_child(0).selected,
+		"type"		: i.get_child(0).get_child(1).selected,
+		"unique" 	: i.get_child(0).get_child(2).selected,
+		"name" 		: i.get_child(0).get_child(3).text,
+		"UUID" 		: uuidGen.v4(),
+		"dataPoints": []
+	}
 	if i.get_child(0).get_child(1).text == "Class":
 		classes.append(dataPoint)
 	return dataPoint
 func _on_ButtonAddItem_pressed():
 	vBox.add_child(itemBox.instance(),true)
+
+

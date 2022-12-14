@@ -23,7 +23,7 @@ margin_top = 7.0
 margin_right = 333.0
 margin_bottom = 27.0
 text = "Int"
-items = [ "Int", null, false, 0, null, "String", null, false, 1, null, "Class", null, false, 2, null ]
+items = [ "Int", null, false, 0, null, "String", null, false, 1, null, "Class", null, false, 2, null, "Function", null, false, 3, null ]
 selected = 0
 
 [node name="Type2" type="OptionButton" parent="Panel"]
